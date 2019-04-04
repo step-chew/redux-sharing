@@ -1,6 +1,8 @@
 const { createStore } = Redux;
 
-const counter = (state = 0, action) => {
+let initialState = 0;
+
+const counter = (state = initialState, action) => {
   switch (action.type) {
     case 'INCREMENT':
       return state + 1;
@@ -16,9 +18,11 @@ const counter = (state = 0, action) => {
 
 const store = createStore(counter);
 
-store.subscribe(() => {
+store.subscribe(render);
+
+function render() {
   document.getElementById('result').innerText = store.getState();
-});
+}
 
 document.getElementById('btnIncrement').addEventListener('click', () => {
   store.dispatch({
@@ -43,6 +47,7 @@ document.getElementById('btnCompute').addEventListener('click', () => {
   }
 });
 
+render();
 
 
 
@@ -65,10 +70,7 @@ document.getElementById('btnCompute').addEventListener('click', () => {
 
 
 // Easter egg
-let storage;
-if (!isNaN(parseInt(storage = localStorage.getItem('result')), 10)) {
-  store.dispatch({
-    type: 'LOAD',
-    value: storage
-  })
+function easterEgg() {
+  let storage;
+  return !isNaN(storage = parseInt(localStorage.getItem('result')), 10) ? storage : 0;
 }
