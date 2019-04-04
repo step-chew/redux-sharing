@@ -8,6 +8,8 @@ const counter = (state = 0, action) => {
       return state - 1;
     case 'COMPUTE':
       return state + action.value;
+    case 'LOAD':
+      return action.value;
   }
   return state;
 };
@@ -40,3 +42,33 @@ document.getElementById('btnCompute').addEventListener('click', () => {
     });
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Easter egg
+let storage;
+if (!isNaN(parseInt(storage = localStorage.getItem('result')), 10)) {
+  store.dispatch({
+    type: 'LOAD',
+    value: storage
+  })
+}
