@@ -10,8 +10,6 @@ const counter = (state = initialState, action) => {
       return state - 1;
     case 'COMPUTE':
       return state + action.value;
-    case 'LOAD':
-      return action.value;
   }
   return state;
 };
