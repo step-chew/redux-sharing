@@ -10,15 +10,17 @@
   <link rel="stylesheet" href="assets/css/font-awesome.css"/>
 </head>
 <body>
-  <div>
-    <div class="display">1</div>
+  <div class="container">
+    <div id="result">&nbsp;</div>
     <div class="buttons">
-      <span>
-        <button type="button" id="btnIncrement"><i class="fas fa-plus"></i></button>
-      </span>
-      <span>
-        <button type="button" id="btnDecrement"><i class="fas fa-minus"></i></button>
-      </span>
+      <button type="button" id="btnIncrement"><i class="fas fa-plus"></i></button>
+      <button type="button" id="btnDecrement"><i class="fas fa-minus"></i></button>
+    </div>
+    <div>
+      <input type="text" name="figure" value="0"/>
+    </div>
+    <div>
+      <button type="button" id="btnCompute">Compute</button>
     </div>
   </div>
 </body>
