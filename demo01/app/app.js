@@ -1,6 +1,6 @@
 const { createStore } = Redux;
 
-let initialState = 0;
+let initialState = JSON.parse(document.getElementById('initialState').innerText);
 
 const counter = (state = initialState, action) => {
   switch (action.type) {
@@ -10,6 +10,8 @@ const counter = (state = initialState, action) => {
       return state - 1;
     case 'COMPUTE':
       return state + action.value;
+    case 'LOAD':
+      return action.value;
   }
   return state;
 };
@@ -35,15 +37,25 @@ document.getElementById('btnDecrement').addEventListener('click', () => {
 });
 
 document.getElementById('btnCompute').addEventListener('click', () => {
-  let val;
+  const action = compute(document.querySelector('input[name="figure"]').value);
 
-  if (!isNaN(val = parseInt(document.querySelector('input[name="figure"]').value, 10))) {
-    store.dispatch({
-      type: 'COMPUTE',
-      value: val
-    });
+  if (action) {
+    store.dispatch(action);
   }
 });
+
+function compute(input) {
+  let val;
+
+  if (!isNaN(val = parseInt(input, 10))) {
+    return {
+      type: 'COMPUTE',
+      value: val
+    };
+  }
+
+  return undefined;
+}
 
 render();
 
@@ -68,7 +80,12 @@ render();
 
 
 // Easter egg
-function easterEgg() {
+(function easterEgg() {
   let storage;
-  return !isNaN(storage = parseInt(localStorage.getItem('result')), 10) ? storage : 0;
-}
+  if (!isNaN(storage = parseInt(localStorage.getItem('result')), 10)) {
+    store.dispatch({
+      type: 'LOAD',
+      value: storage
+    })
+  }
+})()
