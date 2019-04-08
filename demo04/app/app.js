@@ -6,7 +6,7 @@ const { map, mapTo, mergeMap, switchMap, tap } = rxjs.operators;
 
 let initialState = {
   loading: false,
-  value: ''
+  value: 'Try me'
 };
 
 const counter = (state = initialState, action) => {
@@ -74,8 +74,8 @@ document.getElementById('btnFive').addEventListener('click', () => {
 });
 
 const fetchNameEpic = action$ => action$.ofType('FETCH').pipe(
-  // map(action => action.id)
-  mergeMap(action => from(fetchEnglishName(action.id))),
+  switchMap(action => from(fetchEnglishName(action.id))), // switchMap() takes the last item
+  // mergeMap(action => from(fetchEnglishName(action.id))), // mergeMap() takes everything concurrently
   map(payload => ({
     type: 'FETCH_FULFILED',
     payload
